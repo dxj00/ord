@@ -39,6 +39,18 @@ impl Media {
     ("video/webm", Media::Video, &["webm"]),
   ];
 
+  pub(crate) fn extension_for_content_type(content_type: &str) -> Option<&'static str> {
+    for entry in Self::TABLE {
+      if entry.0 == content_type {
+        if entry.2.is_empty() {
+          return None
+        }
+        return Some(entry.2[0])
+      }
+    }
+    return None
+  }
+
   pub(crate) fn content_type_for_path(path: &Path) -> Result<&'static str, Error> {
     let extension = path
       .extension()
