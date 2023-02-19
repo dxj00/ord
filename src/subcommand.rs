@@ -4,6 +4,7 @@ pub mod epochs;
 pub mod find;
 mod index;
 pub mod info;
+mod imgdump;
 pub mod list;
 pub mod parse;
 mod preview;
@@ -45,6 +46,8 @@ pub(crate) enum Subcommand {
   Traits(traits::Traits),
   #[clap(subcommand, about = "Wallet commands")]
   Wallet(wallet::Wallet),
+  #[clap(about = "Dump images")]
+  ImgDump(imgdump::ImgDump),
 }
 
 impl Subcommand {
@@ -67,6 +70,7 @@ impl Subcommand {
       Self::Supply => supply::run(),
       Self::Traits(traits) => traits.run(),
       Self::Wallet(wallet) => wallet.run(options),
+      Self::ImgDump(imgdump) => imgdump.run(options),
     }
   }
 }
